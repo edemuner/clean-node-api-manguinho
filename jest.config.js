@@ -5,7 +5,7 @@
 
 /** @type {import('jest').Config} */
 const config = {
-  roots:['<rootdir>/src'],
+  roots:['<rootDir>/src'],
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -22,7 +22,7 @@ const config = {
   // collectCoverage: false,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-   collectCoverageFrom: ['<rootdir>/src/**/*.ts'],
+   collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
 
   // The directory where Jest should output its coverage files
   // coverageDirectory: undefined,
@@ -178,7 +178,7 @@ const config = {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    '.+\\.ts$':'ts-jest'
+    '.+\\.ts$': 'ts-jest'
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
