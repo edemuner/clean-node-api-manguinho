@@ -16,3 +16,11 @@ export const serverError = (): HttpResponse => {
     };
 
 }
+
+export const ok = (data): HttpResponse => {
+    return {
+        statusCode: 200,
+        body: data
+    };
+
+}
