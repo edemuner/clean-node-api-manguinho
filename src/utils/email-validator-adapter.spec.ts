@@ -19,8 +19,10 @@ describe('EmailValidator Adapter', () => {
         expect(isValid).toBe(false);
     });
 
-    test('should return true if validator returns false', () => {
+    test('should return true if validator returns true', () => {
         const sut = makeSut();
+        // this is what is implemented in the class, but IMO to follow the same pattern as above we should also mock validator return value
+        // bc we're relying on validator lib behavior
         const isValid = sut.isValid('valid_email@mail.com');
         expect(isValid).toBe(true);
     })
