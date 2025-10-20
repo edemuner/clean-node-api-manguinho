@@ -35,6 +35,8 @@ const config = {
   // Indicates which provider should be used to instrument code for coverage
   coverageProvider: "v8",
 
+  preset: '@shelf/jest-mongodb',
+
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
   //   "json",
