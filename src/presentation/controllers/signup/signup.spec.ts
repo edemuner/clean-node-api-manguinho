@@ -60,7 +60,7 @@ const makeFakeAccount = (): AccountModel => {
         name: 'validName',
         email: 'validEmail@email.com',
         password: 'valid_password'
-}
+    }
 }
 
 describe('Signup Controller', () => {
