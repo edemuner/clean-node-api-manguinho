@@ -108,4 +108,12 @@ describe('Login controller',  () => {
         const httpResponse = await sut.handle(makeFakeRequest());
         expect(httpResponse).toEqual(unauthorized());
     });
+
+    test('Shold return 500 if email authentication throws', async () => {
+        const { sut, authenticationStub } = makeSut();
+        jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())));
+        const httpResponse = await sut.handle(makeFakeRequest());
+        expect(httpResponse).toEqual(serverError(new Error()));
+    });
+
 })
