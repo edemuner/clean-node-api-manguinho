@@ -1,5 +1,5 @@
 import { LoginController } from "./login";
-import { badRequest, serverError, unauthorized } from '../../helpers/http-helper'
+import { badRequest, ok, serverError, unauthorized } from '../../helpers/http-helper'
 import { InvalidParamError, MissingParamError } from "../../errors";
 import { EmailValidator, HttpRequest, Authentication } from "./login-protocols";
 
@@ -114,6 +114,12 @@ describe('Login controller',  () => {
         jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())));
         const httpResponse = await sut.handle(makeFakeRequest());
         expect(httpResponse).toEqual(serverError(new Error()));
+    });
+
+    test('Shold return 200 if valid credentials are provided', async () => {
+        const { sut, authenticationStub } = makeSut();
+        const httpResponse = await sut.handle(makeFakeRequest());
+        expect(httpResponse).toEqual(ok({accessToken: 'any_token'}));
     });
 
 })
