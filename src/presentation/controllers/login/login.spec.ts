@@ -60,7 +60,7 @@ describe('Login controller',  () => {
         expect(httpResponse).toEqual(badRequest(new MissingParamError('email')))
     });
 
-    test('Shold return 400 if no password is provided', async () => {
+    test('Should return 400 if no password is provided', async () => {
         const { sut } = makeSut();
         const httpRequest = {
             body: {
@@ -71,21 +71,21 @@ describe('Login controller',  () => {
         expect(httpResponse).toEqual(badRequest(new MissingParamError('password')));
     });
 
-    test('Shold call email validator with correct email', async () => {
+    test('Should call email validator with correct email', async () => {
         const { sut, emailValidatorStub } = makeSut();
         const isValidSpy = jest.spyOn(emailValidatorStub, 'isValid');
         await sut.handle(makeFakeRequest());
         expect(isValidSpy).toHaveBeenCalledWith('any_email@email.com');
     });
 
-    test('Shold return 400 if an invalid email is provided', async () => {
+    test('Should return 400 if an invalid email is provided', async () => {
         const { sut, emailValidatorStub } = makeSut();
         jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(false);
         const httpResponse = await sut.handle(makeFakeRequest());
         expect(httpResponse).toEqual(badRequest(new InvalidParamError('email')));
     });
 
-    test('Shold return 500 if email validator throws', async () => {
+    test('Should return 500 if email validator throws', async () => {
         const { sut, emailValidatorStub } = makeSut();
         jest.spyOn(emailValidatorStub, 'isValid').mockImplementationOnce(() => {
             throw new Error();
@@ -94,7 +94,7 @@ describe('Login controller',  () => {
         expect(httpResponse).toEqual(serverError(new Error()));
     });
 
-    test('Shold call authentication validator with correct values', async () => {
+    test('Should call authentication validator with correct values', async () => {
         const { sut, authenticationStub } = makeSut();
         const authSpy = jest.spyOn(authenticationStub, 'auth');
         const fakeRequest = makeFakeRequest();
@@ -102,21 +102,21 @@ describe('Login controller',  () => {
         expect(authSpy).toHaveBeenCalledWith('any_email@email.com', 'any_password');
     });
 
-    test('Shold return 401 if invalid credentials are provided', async () => {
+    test('Should return 401 if invalid credentials are provided', async () => {
         const { sut, authenticationStub } = makeSut();
         jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(new Promise(resolve => resolve(null)));
         const httpResponse = await sut.handle(makeFakeRequest());
         expect(httpResponse).toEqual(unauthorized());
     });
 
-    test('Shold return 500 if email authentication throws', async () => {
+    test('Should return 500 if email authentication throws', async () => {
         const { sut, authenticationStub } = makeSut();
         jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())));
         const httpResponse = await sut.handle(makeFakeRequest());
         expect(httpResponse).toEqual(serverError(new Error()));
     });
 
-    test('Shold return 200 if valid credentials are provided', async () => {
+    test('Should return 200 if valid credentials are provided', async () => {
         const { sut, authenticationStub } = makeSut();
         const httpResponse = await sut.handle(makeFakeRequest());
         expect(httpResponse).toEqual(ok({accessToken: 'any_token'}));
