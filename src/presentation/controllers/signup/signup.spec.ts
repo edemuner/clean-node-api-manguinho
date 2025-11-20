@@ -23,7 +23,6 @@ const makeAddAccount = (): AddAccount => {
 const makeValidation = (): Validation => {
     class ValidationStub implements Validation {
         validate(input: any): Error {
-            const fakeAccount = makeFakeAccount();
             return null;
         }
     }
